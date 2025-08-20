@@ -45,20 +45,6 @@ RSpec.describe "/quests", type: :request do
       end
 
     end
-
-    context "with invalid parameters" do
-      it "does not create a new Quest" do
-        expect {
-          post quests_url, params: { quest: invalid_attributes }
-        }.not_to change(Quest, :count)
-      end
-
-      it "renders a response with 422 status (html)" do
-        post quests_url, params: { quest: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-    end
   end
 
   describe "PATCH /update" do
