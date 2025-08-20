@@ -10,7 +10,7 @@ RSpec.describe "/quests", type: :request do
 
   let(:invalid_attributes) do
     {
-      title: "",  
+      title: "",
       status: nil
     }
   end
@@ -43,7 +43,6 @@ RSpec.describe "/quests", type: :request do
         post quests_url, params: { quest: valid_attributes }
         expect(response).to redirect_to(quest_url(Quest.last))
       end
-
     end
   end
 

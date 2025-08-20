@@ -39,8 +39,8 @@ class QuestsController < ApplicationController
       if @quest.update(quest_params)
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
-            "quest_#{@quest.id}", 
-            partial: "quests/quest_row", 
+            "quest_#{@quest.id}",
+            partial: "quests/quest_row",
             locals: { quest: @quest }
           )
         end
@@ -49,8 +49,8 @@ class QuestsController < ApplicationController
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
-            "quest_#{@quest.id}", 
-            partial: "quests/quest_row", 
+            "quest_#{@quest.id}",
+            partial: "quests/quest_row",
             locals: { quest: @quest }
           )
         end
@@ -63,10 +63,10 @@ class QuestsController < ApplicationController
   # DELETE /quests/1 or /quests/1.json
   def destroy
     @quest.destroy
-    
+
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.remove("quest_#{@quest.id}") }
-      format.html { redirect_to quests_path, notice: 'Quest was successfully deleted.' }
+      format.html { redirect_to quests_path, notice: "Quest was successfully deleted." }
       format.json { head :no_content }
     end
   end
