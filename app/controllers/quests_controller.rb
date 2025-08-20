@@ -54,13 +54,14 @@ end
 
   # DELETE /quests/1 or /quests/1.json
   def destroy
-    @quest.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to quests_path, notice: "Quest was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+  @quest = Quest.find(params[:id])
+  @quest.destroy
+  
+  respond_to do |format|
+    format.turbo_stream { render turbo_stream: turbo_stream.remove("quest_#{@quest.id}") }
+    format.html { redirect_to quests_path, notice: 'Quest was successfully deleted.' }
   end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
