@@ -3,8 +3,8 @@ class QuestsController < ApplicationController
 
   # GET /quests or /quests.json
   def index
-    @quests = Quest.all
-    @quest = Quest.new  # Add this for the new quest form
+    @quests = Quest.order(created_at: :desc)  # Newest first
+    @quest = Quest.new  # For the new quest form
   end
 
   # GET /quests/1 or /quests/1.json
@@ -28,9 +28,10 @@ class QuestsController < ApplicationController
       if @quest.save
         format.turbo_stream do
           render turbo_stream: [
+            # Since we're sorting newest first, prepend works perfectly
             turbo_stream.prepend("quests", partial: "quests/quest_row", locals: { quest: @quest }),
             turbo_stream.replace("new_quest_form", partial: "quests/new_quest_form", locals: { quest: Quest.new }),
-            turbo_stream.remove("no_quests_message") # Remove "no quests" message if it exists
+            turbo_stream.remove("no_quests_message")
           ]
         end
         format.html { redirect_to @quest, notice: "Quest was successfully created." }
@@ -47,9 +48,6 @@ class QuestsController < ApplicationController
 
   # PATCH/PUT /quests/1 or /quests/1.json
   def update
-    # Remove this line since set_quest already handles it
-    # @quest = Quest.find(params[:id])
-    
     if @quest.update(quest_params)
       respond_to do |format|
         format.turbo_stream do
@@ -66,8 +64,6 @@ class QuestsController < ApplicationController
 
   # DELETE /quests/1 or /quests/1.json
   def destroy
-    # Remove this line since set_quest already handles it
-    # @quest = Quest.find(params[:id])
     @quest.destroy
     
     respond_to do |format|
