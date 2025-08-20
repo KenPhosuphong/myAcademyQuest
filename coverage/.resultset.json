@@ -104,32 +104,11 @@
         "lines": [
           1,
           null,
-          1,
+          null,
           null
         ]
-      },
-      "/Users/oddsmacken/myAcademyQuest/app/jobs/application_job.rb": {
-        "lines": [
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0
-        ],
-        "branches": {}
-      },
-      "/Users/oddsmacken/myAcademyQuest/app/mailers/application_mailer.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1755656700
+    "timestamp": 1755662733
   }
 }

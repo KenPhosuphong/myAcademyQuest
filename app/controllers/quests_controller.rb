@@ -36,16 +36,21 @@ class QuestsController < ApplicationController
 
   # PATCH/PUT /quests/1 or /quests/1.json
   def update
+  @quest = Quest.find(params[:id])
+  
+  if @quest.update(quest_params)
     respond_to do |format|
-      if @quest.update(quest_params)
-        format.html { redirect_to @quest, notice: "Quest was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @quest }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @quest.errors, status: :unprocessable_entity }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "quest_#{@quest.id}", 
+          partial: "quests/quest_row", 
+          locals: { quest: @quest }
+        )
       end
+      format.html { redirect_to @quest }
     end
   end
+end
 
   # DELETE /quests/1 or /quests/1.json
   def destroy
