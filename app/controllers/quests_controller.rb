@@ -1,5 +1,5 @@
 class QuestsController < ApplicationController
-  before_action :set_quest, only: %i[ show edit update destroy ]
+  before_action :set_quest, only: %i[ update destroy ]
 
   # GET /quests or /quests.json
   def index
@@ -48,8 +48,8 @@ class QuestsController < ApplicationController
 
   # PATCH/PUT /quests/1 or /quests/1.json
   def update
-    if @quest.update(quest_params)
-      respond_to do |format|
+    respond_to do |format|
+      if @quest.update(quest_params)
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
             "quest_#{@quest.id}", 
@@ -57,7 +57,18 @@ class QuestsController < ApplicationController
             locals: { quest: @quest }
           )
         end
-        format.html { redirect_to @quest }
+        format.html { redirect_to @quest, notice: "Quest was successfully updated." }
+        format.json { render :show, status: :ok, location: @quest }
+      else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "quest_#{@quest.id}", 
+            partial: "quests/quest_row", 
+            locals: { quest: @quest }
+          )
+        end
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @quest.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +80,7 @@ class QuestsController < ApplicationController
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.remove("quest_#{@quest.id}") }
       format.html { redirect_to quests_path, notice: 'Quest was successfully deleted.' }
+      format.json { head :no_content }
     end
   end
 

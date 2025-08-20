@@ -1,4 +1,4 @@
-<div class="bg-white rounded-xl p-6 mb-6">
+<div id="new_quest_form" class="bg-white rounded-xl p-6 mb-6">
   <div class="flex flex-col lg:flex-row lg:items-start gap-6">
     
     <!-- Profile Image -->
@@ -40,7 +40,7 @@
       <!-- Quick Actions -->
       <div class="flex flex-col sm:flex-row gap-3 pt-2">
         <%= link_to "My BRAG!!", "/brag", 
-            class: "inline-flex items-center justify-center px-6 py-3 
+            class: "inline-flex items-center justify-center px-6 py-3 max-w-xs
                    bg-gradient-to-r from-purple-600 to-purple-700 
                    hover:from-purple-700 hover:to-purple-800 
                    text-white font-semibold rounded-lg shadow-md 
@@ -50,6 +50,25 @@
         <div class="text-xs text-gray-500 sm:ml-auto sm:mt-2 text-center sm:text-right">
         </div>
       </div>
+
+      <!-- Error Messages in separate div -->
+      <% if quest.errors.any? %>
+        <div class="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-4">
+          <div class="flex items-start">
+            <svg class="w-5 h-5 text-red-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <div>
+              <h3 class="text-sm font-medium text-red-800 mb-2">Please fix the following errors:</h3>
+              <ul class="space-y-1">
+                <% quest.errors.full_messages.each do |message| %>
+                  <li class="text-sm text-red-700">• <%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
