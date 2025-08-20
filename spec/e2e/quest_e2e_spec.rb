@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Quests", type: :system do
   before do
-    driven_by(:rack_test) # Or :selenium_chrome_headless if you want JS/animations
+    # rack_test cannot handle Turbo Streams,
+    # so use selenium_chrome_headless for full JS/Turbo behavior
+    driven_by(:selenium_chrome_headless)
   end
 
   it 'displays the new quest form' do
@@ -18,13 +20,22 @@ RSpec.describe "Quests", type: :system do
     expect(page).to have_button('Create Quest')
   end
 
-  it 'adds a new quest successfully' do
+  it 'adds and then deletes a quest' do
     visit root_path
 
-    fill_in 'quest_title', with: 'New Quest'
+    # Create a quest
+    fill_in 'quest_title', with: 'Quest to Delete'
     click_button 'Create Quest'
 
-    # After submit, we should see the new quest text
-    expect(page).to have_content('New Quest')
+    expect(page).to have_content('Quest to Delete')
+
+    # Find the turbo_frame for this quest and click delete
+    quest_frame = find("turbo-frame[id^='quest_']", text: 'Quest to Delete')
+    within(quest_frame) do
+      find('button[title="Delete quest"]').click
+    end
+
+    # Wait for Turbo Stream to remove it
+    expect(page).not_to have_content('Quest to Delete')
   end
 end
