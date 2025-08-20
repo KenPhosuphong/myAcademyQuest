@@ -23,21 +23,9 @@
       </div>
       
     <!-- New Quest Form Section -->
-    <div class="mb-8">
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
-          <h2 class="text-xl font-semibold text-white flex items-center">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-            Create New Quest
-          </h2>
-        </div>
-        <div class="p-6" id="new_quest_form">
+    
           <%= render "new_quest_form", quest: @quest %>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Quests List Section -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
