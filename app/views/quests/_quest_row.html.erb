@@ -1,21 +1,52 @@
 <%= turbo_frame_tag "quest_#{quest.id}" do %>
-  <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-    <%= render quest %>
-    <div class="w-full sm:w-auto flex flex-row items-center space-x-2">
-      <%= form_with model: quest, local: false, class: "inline-flex items-center" do |form| %>
-        <%= form.check_box :status, 
-            class: "h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded",
-            onchange: "this.form.requestSubmit()" %>
-      <% end %>
+  <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors duration-150">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      
+      <!-- Quest Content -->
+      <div class="flex-1 min-w-0">
+        <%= render quest %>
+      </div>
 
-      <%= button_to quest, method: :delete, 
-          class: "flex items-center justify-center p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-md transition-colors cursor-pointer", 
-          data: { turbo_confirm: "Are you sure?" },
-          title: "Delete quest" do %>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-        </svg>
-      <% end %>
+      <!-- Actions -->
+      <div class="flex items-center space-x-3 flex-shrink-0">
+        
+        <!-- Status Toggle -->
+        <%= form_with model: quest, local: false, class: "flex items-center" do |form| %>
+          <label class="flex items-center cursor-pointer group">
+            <%= form.check_box :status, 
+                class: "sr-only",
+                onchange: "this.form.requestSubmit()" %>
+            <div class="relative">
+              <div class="w-6 h-6 border-2 rounded-md transition-all duration-200 
+                         <%= quest.status? ? 'bg-green-500 border-green-500' : 'border-gray-300 group-hover:border-green-400' %>">
+                <% if quest.status? %>
+                  <svg class="w-4 h-4 text-white absolute top-0.5 left-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                <% end %>
+              </div>
+            </div>
+            <span class="ml-2 text-sm text-gray-600 hidden sm:inline">
+              <%= quest.status? ? 'Complete' : 'Mark Done' %>
+            </span>
+          </label>
+        <% end %>
+
+        <!-- Delete Button -->
+        <%= button_to quest, method: :delete, 
+            class: "group p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200", 
+            data: { turbo_confirm: "Are you sure you want to delete this quest?" },
+            title: "Delete quest" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Progress Bar (Optional - shows completion status visually) -->
+    <div class="mt-3 w-full bg-gray-200 rounded-full h-1 sm:hidden">
+      <div class="bg-green-500 h-1 rounded-full transition-all duration-300 <%= quest.status? ? 'w-full' : 'w-0' %>"></div>
     </div>
   </div>
 <% end %>

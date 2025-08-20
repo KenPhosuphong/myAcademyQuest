@@ -1,30 +1,74 @@
-<div id="new_quest_form" class="mb-6 flex items-start gap-6">
-  <%= image_tag "me.jpg", alt: "Profile picture", class: "w-32 h-32 rounded-full object-cover shadow-lg flex-shrink-0" %>
-  
-  <div class="flex-1">
-    <%= form_with(model: quest, local: false, class: "mb-4") do |form| %>
-      <% if quest.errors.any? %>
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-          <strong>Please fix the following errors:</strong>
-          <ul class="mt-2">
-            <% quest.errors.full_messages.each do |message| %>
-              <li class="text-sm">• <%= message %></li>
-            <% end %>
-          </ul>
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+  <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+    
+    <!-- Profile Image -->
+    <div class="flex-shrink-0 self-center lg:self-start">
+      <%= image_tag "me.jpg", 
+          alt: "Profile picture", 
+          class: "w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-full object-cover shadow-lg border-4 border-white ring-2 ring-blue-100" %>
+    </div>
+    
+    <!-- Form Content -->
+    <div class="flex-1 space-y-4">
+      <%= form_with(model: quest, local: false, class: "space-y-4") do |form| %>
+        
+        <!-- Error Messages -->
+        <% if quest.errors.any? %>
+          <div class="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-4">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h3 class="text-sm font-medium text-red-800 mb-2">Please fix the following errors:</h3>
+                <ul class="space-y-1">
+                  <% quest.errors.full_messages.each do |message| %>
+                    <li class="text-sm text-red-700">• <%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Quest Input -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex-1">
+            <%= form.text_field :title, 
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                       transition-all duration-200 placeholder-gray-400", 
+                placeholder: "What's your next learning quest? (e.g., Master React hooks, Learn Python basics...)" %>
+          </div>
+          
+          <%= form.submit class: "px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 
+                                 hover:from-blue-700 hover:to-blue-800 
+                                 text-white font-semibold rounded-lg shadow-md 
+                                 transition-all duration-200 transform hover:scale-105
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" do %>
+            <span class="hidden sm:inline">Add Quest</span>
+            <span class="sm:hidden">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+            </span>
+          <% end %>
         </div>
       <% end %>
-
-      <div class="flex">
-        <%= form.text_field :title, 
-            class: "flex-1 rounded-l-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2", 
-            placeholder: "Add a new quest..." %>
+      
+      <!-- Quick Actions -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <%= link_to "My BRAG!!", "/brag", 
+            class: "inline-flex items-center justify-center px-6 py-3 
+                   bg-gradient-to-r from-purple-600 to-purple-700 
+                   hover:from-purple-700 hover:to-purple-800 
+                   text-white font-semibold rounded-lg shadow-md 
+                   transition-all duration-200 transform hover:scale-105
+                   focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2" %>
         
-        <%= form.submit "+", 
-            class: "rounded-r-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+        <div class="text-xs text-gray-500 sm:ml-auto sm:mt-2 text-center sm:text-right">
+        </div>
       </div>
-    <% end %>
-    
-    <%= link_to "My BRAG!!", "/brag", class: "px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white 
-    font-semibold rounded-lg shadow-md transition-colors duration-200" %>
+    </div>
   </div>
 </div>
