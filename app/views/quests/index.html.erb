@@ -1,26 +1,89 @@
 <% content_for :title, "Quests" %>
 
-<div class="w-full max-w-3xl mx-auto px-4">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="font-bold text-4xl">My Academy Quests</h1>
-  </div>
-
-  <!-- New Quest Form -->
-  <div id="new_quest_form" class="mb-6">
-    <%= render "new_quest_form", quest: @quest %>
-  </div>
-
-  <div id="quests" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @quests.any? %>
-      <% @quests.each do |quest| %>
-        <%= render "quest_row", quest: quest %>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10" id="no_quests_message">No quests found.</p>
+<div class="min-h-screen w-full from-slate-50 to-blue-50">
+  <div class="w-full max-w-4xl mx-auto px-4 py-8">
+    <% if notice.present? %>
+      <div class="mb-6">
+        <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-lg shadow-sm flex items-center space-x-2" id="notice">
+          <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="font-medium"><%= notice %></span>
+        </div>
+      </div>
     <% end %>
+
+    <!-- Header Section -->
+    <div class="mb-8">
+      <div class="text-center mb-2">
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+          My Academy Quests
+        </h1>
+        <p class="text-gray-600 text-lg">Track your learning journey and complete challenges</p>
+      </div>
+      
+    <!-- New Quest Form Section -->
+    <div class="mb-8">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
+          <h2 class="text-xl font-semibold text-white flex items-center">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Create New Quest
+          </h2>
+        </div>
+        <div class="p-6" id="new_quest_form">
+          <%= render "new_quest_form", quest: @quest %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quests List Section -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+      <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+          <svg class="w-6 h-6 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          Your Quests
+        </h2>
+      </div>
+
+      <div id="quests">
+        <% if @quests.any? %>
+          <div class="divide-y divide-gray-100">
+            <% @quests.each do |quest| %>
+              <div class="transition-all duration-200 hover:bg-gray-50">
+                <%= render "quest_row", quest: quest %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-16" id="no_quests_message">
+            <svg class="mx-auto h-16 w-16 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No quests yet</h3>
+            <p class="text-gray-500 mb-6">Get started by creating your first quest above!</p>
+            <button onclick="document.querySelector('#new_quest_form input').focus()" 
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Create Your First Quest
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-12 text-gray-500 text-sm">
+      <p class="flex items-center justify-center space-x-2">
+        <span>Keep pushing forward on your learning journey!</span>
+        <span class="text-yellow-400">🚀</span>
+      </p>
+    </div>
   </div>
 </div>
