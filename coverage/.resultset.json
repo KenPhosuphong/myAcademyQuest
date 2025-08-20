@@ -1,21 +1,112 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/oddsmacken/myAcademyQuest/app/controllers/application_controller.rb": {
+      "/Users/oddsmacken/myAcademyQuest/app/helpers/application_helper.rb": {
         "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/oddsmacken/myAcademyQuest/app/helpers/quests_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/oddsmacken/myAcademyQuest/app/models/quest.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/oddsmacken/myAcademyQuest/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/oddsmacken/myAcademyQuest/app/controllers/quests_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
           0,
           null,
           0,
-          0
-        ],
-        "branches": {}
-      },
-      "/Users/oddsmacken/myAcademyQuest/app/helpers/application_helper.rb": {
-        "lines": [
           0,
-          0
-        ],
-        "branches": {}
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/oddsmacken/myAcademyQuest/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null
+        ]
       },
       "/Users/oddsmacken/myAcademyQuest/app/jobs/application_job.rb": {
         "lines": [
@@ -37,16 +128,8 @@
           0
         ],
         "branches": {}
-      },
-      "/Users/oddsmacken/myAcademyQuest/app/models/application_record.rb": {
-        "lines": [
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1755656213
+    "timestamp": 1755656700
   }
 }
